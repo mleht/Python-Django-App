@@ -1,0 +1,5 @@
+- Nice simple Django MVC app
+- Animal listings of an imaginary homeless pets shelter
+- Crud 
+- Authentication
+- Responsive
