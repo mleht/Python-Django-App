@@ -1,0 +1,65 @@
+{% extends 'index.html' %} 
+{% block title %}Eläimet{% endblock %}
+{% block content %}
+
+
+<h2 style="margin-top: 2rem;">Eläimet</h2>
+
+<div class="dropdown" style="margin-bottom: 1rem;">
+  <a href="#" class="btn btn-dark"  data-toggle="modal" data-target="#uusielain" style="background-color:#9B59B6"; margin-top: 1rem;">Lisää uusi eläin tietokantaan</a>
+</div>
+
+{% for e in elaimet %}
+<div class="row">
+  <div class="col-md-8" style="margin:0 auto;">
+    <div class="card container-fluid" style="margin-top: 1rem;">
+      <div class="card-body">
+        <h5 class="card-title">{{e.ryhma.ryhma}} nimeltä {{e.nimi}}</h5>
+
+        <p class="card-text">{{e.huomioon}}</p>
+        <p class="card-text; small" style="color: grey;">Lisätty: {{e.pvm}}</p>
+        <a href="/muokkaa-elain-get/{{e.id}}"><i class="fas fa-edit fa-lg" style="color:#9B59B6; margin-right:1rem" title="Muokkaa"></i></a>      
+        <a href="/poista-elain-get/{{e.id}}"><i class="fas fa-trash-alt fa-lg" style="color:#9B59B6" title="Poista"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% empty %}
+<h5 style="margin-top: 1.5rem;">Tietokannassa ei eläimiä.</h5>
+
+{% endfor %}
+
+<div class="modal fade bd-example-modal-sm" id="uusielain" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">Lisää eläin tietokantaan</h3>
+        </div>
+        <div class="modal-body">
+          <form action="/lisaa-elain/" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Eläinkategoria</label>
+                <select class="form-control" name="kategoria">
+                  {% for k in kategoriat %}
+                  <option value="{{ k.ryhma }}" > {{k.ryhma }}</option>
+                  {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+              <label>Nimi</label>
+              <input type="text" class="form-control" name="nimi" required>
+            </div>
+            <div class="form-group">
+              <label>Tietoa eläimestä:</label>
+              <input type="text" class="form-control" name="huomioon" required>
+            </div>
+            <button class="btn btn-success" type="submit" style="width: 100%; background-color:#9B59B6">Tallenna</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

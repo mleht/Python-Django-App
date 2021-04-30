@@ -1,0 +1,27 @@
+{% extends 'index.html' %} 
+{% block title %}Eläimet listaus{% endblock %}
+{% block content %}
+
+{% if user.is_authenticated %}
+<div class="card" style="margin-top: 2rem; max-width: 50rem;">
+    <div class="card-header">
+        <h4>Olet kirjautuneena sisään</h4>
+        <p style="margin-top: 2rem;">Voit lisätä, muokata tai poistaa eläimen tietoja tietokannassa.</p>
+        <p style="margin-top: 1.5rem;">Voit myös lisätä, muokata tai poistaa tietokannan eläinkategorioita.</a></p>
+    </div>
+</div>
+{% else %}
+
+<div class="card" style="margin-top: 2rem; max-width: 50rem;">
+    <div class="card-header">
+        <h4>Kotia etsivät eläimet Ry</h4>
+        <p style="margin-top: 2rem;">Tämä sovellus on Kotia etsivät eläimet Ry sisäiseen käyttöön.</p>
+        <p style="margin-top: 1.5rem;">Jäsen: ole hyvä ja <a href="#"  data-toggle="modal" data-target="#kirjaudusisaan">kirjaudu sisään.</a></p>
+        <p style="margin-top: 1.5rem;">Vieras: Jos etsit tietoa meistä tai adoptoitavaa eläintä niin käy julkisilla sivuilamme osoitteessa www.jokuosoite.net</p>
+    </div>
+</div>
+
+{% endif %}
+
+
+{% endblock %}

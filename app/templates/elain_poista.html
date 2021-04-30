@@ -1,0 +1,50 @@
+{% extends 'index.html' %} 
+{% block title %}Eläimen tiedot poisto{% endblock %}
+{% block content %}
+
+<div class="alert alert-danger alert-dismissible fade show" role="alert" style="max-width: 40rem;">
+    Huom! Poistoa ei voi perua vahvistuksen jälkeen!
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+{% for p in poistettava %}
+
+<div class="card" style="max-width: 40rem;">
+    <div class="card-header">
+        <h5>Poista eläin ID {{p.id}} tietokannasta</h5>
+        <div class="card-body">
+            <form method="post" action="/poista-elain-post/{{p.id}}/">
+
+                {%csrf_token %}
+
+                <label>Kategoria</label>
+                <div class="form-group">
+                    <input type="text" class="form-control" value="{{p.ryhma.ryhma}}" disabled>
+                </div>
+
+
+                <label>Nimi</label>
+                <div class="form-group">
+                    <input type="text" class="form-control" value="{{p.nimi}}" name="nimi" placeholder="Nimi" disabled>
+                </div>
+
+                <label>Tietoa eläimestä:</label>
+                <div class="form-group">
+                    <input type="text" class="form-control" value="{{p.huomioon}}" name="huomioon" placeholder="Asiakas" disabled>
+                </div>
+
+
+                <input type="submit" value="Poista" class="btn btn-secondary btn-sm" style="background-color:#9B59B6">
+
+                <input type="button" onclick="window.location.href='/elaimet'" id="hide-btn"
+                    class="btn btn-secondary btn-sm"  value="Peruuta">
+            </form>
+        </div>
+    </div>
+</div>
+
+{%endfor%}
+
+{% endblock %}

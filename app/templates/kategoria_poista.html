@@ -1,0 +1,38 @@
+{% extends 'index.html' %} 
+{% block title %}Kategorian muokkaus{% endblock %}
+{% block content %}
+
+<div class="alert alert-danger alert-dismissible fade show" role="alert" style="max-width: 40rem;">
+    Eläinkategorian poistaminen poistaa myös kaikki kyseisen kategorian eläimet tietokannasta! Poistoa ei voi perua vahvistuksen jälkeen!
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+{% for k in kategoria %}
+
+<div class="card" style="max-width: 40rem;">
+    <div class="card-header">
+        <h5>Poista eläinkategoria: {{k.ryhma}}</h5>
+        <div class="card-body">
+            <form method="post" action="/poista-kategoria-post/{{k.id}}/">
+
+                {%csrf_token %}
+
+                <label>Kategorian nimi:</label>
+                <div class="form-group">
+                    <input type="text" name="kategoria" value="{{k.ryhma}}" disabled>
+                </div>
+
+                <input type="submit" value="Poista" class="btn btn-secondary btn-sm" style="background-color:#9B59B6">
+
+                <input type="button" onclick="window.location.href='/elainkategoriat'" id="hide-btn"
+                    class="btn btn-secondary btn-sm"  value="Peruuta">
+            </form>
+        </div>
+    </div>
+</div>
+
+{%endfor%}
+
+{% endblock %}

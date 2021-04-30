@@ -1,0 +1,31 @@
+{% extends 'index.html' %} 
+{% block title %}Kategorian muokkaus{% endblock %}
+{% block content %}
+
+{% for k in kategoria %}
+
+<div class="card" style="max-width: 25rem;">
+    <div class="card-header">
+        <h5>Muokkaa eläinkategoriaa: {{k.ryhma}}</h5>
+        <div class="card-body">
+            <form method="post" action="/muokkaa-kategoria-post/{{k.id}}/">
+
+                {%csrf_token %}
+
+                <label>Kategorian nimi:</label>
+                <div class="form-group">
+                    <input type="text" name="kategoria" value="{{k.ryhma}}" required>
+                </div>
+
+                <input type="submit" value="Päivitä" class="btn btn-secondary btn-sm" style="background-color:#9B59B6">
+
+                <input type="button" onclick="window.location.href='/elainkategoriat'" id="hide-btn"
+                    class="btn btn-secondary btn-sm"  value="Peruuta">
+            </form>
+        </div>
+    </div>
+</div>
+
+{%endfor%}
+
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'index.html' %} 
+{% block title %}Eläinryhmät{% endblock %}
+{% block content %}
+
+<h2>Eläinkategoriat</h2>
+
+<div class="dropdown" style="margin-bottom: 1rem;">
+    <a href="#" class="btn btn-dark"  data-toggle="modal" data-target="#lisaakategoria" style="background-color:#9B59B6; margin-top: 1rem;">Lisää eläinkategoria</a>
+</div>
+
+
+
+
+{% for k in kategoriat %}  
+
+<div class="card" style="width: 20rem;">
+    <div class="card-body">
+        <h4 class="card-title">{{k.ryhma}}</h4>
+        <a href="/muokkaa-kategoria-get/{{k.id}}/"><i class="fas fa-edit fa-lg" style="color:#9B59B6; margin-right:1rem" title="Muokkaa"></i></a> 
+        <a href="/poista-kategoria-get/{{k.id}}/" ><i class="fas fa-trash-alt fa-lg" style="color:#9B59B6" title="Poista"></i></a>
+    </div>
+</div>
+{% empty %}
+<h4>Tietokannassa ei ole eläinkategorioita.</h4>
+
+{%endfor%}
+
+<div class="modal fade bd-example-modal-sm" id="lisaakategoria" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">Lisää eläinkategoria</h3>
+        </div>
+        <div class="modal-body">
+          <form action="/lisaa-kategoria/" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form-group">
+            <label>Eläinkategoria</label>
+            <input type="text" class="form-control" name="kategoria" placeholder="Eläinkategoria" required>
+          </div>
+        <button class="btn btn-success" type="submit" style="width: 100%; background-color:#9B59B6">Lisää</button>
+      </form>
+    </div>
+  </div>
+
+
+{% endblock %}

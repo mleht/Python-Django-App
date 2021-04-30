@@ -1,0 +1,43 @@
+{% extends 'index.html' %} 
+{% block title %}Eläimen tiedot muokkaus{% endblock %}
+{% block content %}
+
+{% for m in muokattava %}
+
+<div class="card" style="max-width: 40rem;">
+    <div class="card-header">
+        <h5>Muokkaa tietoja eläin ID: {{m.id}}</h5>
+        <div class="card-body">
+            <form method="post" action="/muokkaa-elain-post/{{m.id}}/">
+
+                {%csrf_token %}
+
+                <label>Kategoria</label>
+                <div class="form-group">
+                    <input type="text" class="form-control" value="{{m.ryhma.ryhma}}" disabled>
+                </div>
+
+
+                <label>Nimi</label>
+                <div class="form-group">
+                    <input type="text" class="form-control" value="{{m.nimi}}" name="nimi" placeholder="Nimi" required>
+                </div>
+
+                <label>Tietoa eläimestä:</label>
+                <div class="form-group">
+                    <input type="text" class="form-control" value="{{m.huomioon}}" name="huomioon" placeholder="Asiakas" required>
+                </div>
+
+
+                <input type="submit" value="Päivitä" class="btn btn-secondary btn-sm" style="background-color:#9B59B6">
+
+                <input type="button" onclick="window.location.href='/elaimet'" id="hide-btn"
+                    class="btn btn-secondary btn-sm"  value="Peruuta">
+            </form>
+        </div>
+    </div>
+</div>
+
+{%endfor%}
+
+{% endblock %}
